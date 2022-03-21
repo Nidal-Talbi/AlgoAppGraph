@@ -21,10 +21,16 @@ public class App {
 				graph.addNode(line[0]);
 			}
 			else if (line.length == 3)
+			{
 				graph.addEdge(line[0], line[1], line[2]);
+				graph.getEdge(i).setAttribute("poids", 1);
+			}
+			else if (line.length == 4)
+			{
+				graph.addEdge(line[0], line[1], line[2]);
+				graph.getEdge(i).setAttribute("poids", line[3]);
+			}
 		}
-
 		graph.display();
-		
 	}
 }
