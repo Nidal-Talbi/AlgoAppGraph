@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class LecteurFichier {
+public class LecteurArc {
 	static ArrayList<String> graphe = new ArrayList<String>();
 	static ArrayList<String> arc = new ArrayList<String>();
 
@@ -26,22 +26,24 @@ public class LecteurFichier {
 	 * Permet de lire et stocker les données entrantes d'un fichier pris en paramètre
 	 * @param fichier appelé en argument dans la console
 	 */
-	public LecteurFichier(String fichier)
+	public LecteurArc(String fichier)
 	{
 	
 		// On essaye de lire le .grph
 		System.out.println(fichier);
-		if (fichier.split("\\.")[1].equals("grph"))
+		if (fichier.split("\\.")[1].equals("txt"))
 		{
 			try (Scanner sc = new Scanner(new FileInputStream(fichier), "UTF-8"))
 			{
 				while (sc.hasNext())
-					graphe.add(sc.nextLine());
+					arc.add(sc.nextLine());
 			}
 			catch(IOException e)
 			{
-				System.out.println("Aucun fichier trouvé en .grph à exécuter avec le nom spécifié.\n");
+				System.out.println("Aucun fichier trouvé en .txt à exécuter avec le nom spécifié.\n");
 			}
+		} else {
+			System.out.println("Erreur de fichier");
 		}
 	}
 }

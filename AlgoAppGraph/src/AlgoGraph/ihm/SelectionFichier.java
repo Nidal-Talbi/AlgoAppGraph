@@ -10,13 +10,17 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import AlgoGraph.metier.App;
+import AlgoGraph.metier.BellmanFord;
+import AlgoGraph.metier.LecteurArc;
 import AlgoGraph.metier.LecteurFichier;
 
 
 public class SelectionFichier extends JFrame implements ActionListener{
 
     private JButton button,button2;
-    private LecteurFichier lecteur;
+    private LecteurFichier lecteurGraphe;
+    private LecteurArc lecteurArc;
+    private App app;
 
   public static void main(String[] args) {
     /* init + affichage de la fenêtre */
@@ -59,8 +63,10 @@ public class SelectionFichier extends JFrame implements ActionListener{
         if (fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION)
         {
             /* demande au système d'ouvrir le fichier précédemment séléctionné */
-            this.lecteur = new LecteurFichier(fc.getSelectedFile().getAbsolutePath());
-            new App(this.lecteur.getGraphe());
+            this.lecteurGraphe = new LecteurFichier(fc.getSelectedFile().getAbsolutePath());
+            this.lecteurArc = new LecteurArc("arc.txt");
+            this.app = new App(this.lecteurGraphe.getGraphe());
+            new BellmanFord(this.app, this.lecteurArc);
         }
     }
     else if (source==button2)

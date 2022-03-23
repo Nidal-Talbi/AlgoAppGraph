@@ -10,11 +10,12 @@ import java.util.Map;
 public class BellmanFord {
     private App app;
     private HashMap<String,Integer> hashArc;
-    private LecteurFichier lfArc;
-    public BellmanFord()
+    private LecteurArc lfArc;
+    public BellmanFord(App app, LecteurArc lecteurArc)
     {
+        this.app = app;
         this.hashArc = new HashMap<String,Integer>();
-        this.lfArc   = new LecteurFichier("arc.txt");
+        this.lfArc   = lecteurArc;
 
         for (int i = 0; i < app.nbSommet(); i++) {
             if (i == 0)
