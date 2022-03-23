@@ -26,7 +26,7 @@ public class LecteurFichier {
 	
 		//../../../src/AlgoGraph/files/
 		// On essaye de lire le .grph
-		try (Scanner sc = new Scanner(new FileInputStream("graphe"), "UTF-8"))
+		try (Scanner sc = new Scanner(new FileInputStream(fichier), "UTF-8"))
 		{
 			while (sc.hasNext())
 				graphe.add(sc.nextLine());

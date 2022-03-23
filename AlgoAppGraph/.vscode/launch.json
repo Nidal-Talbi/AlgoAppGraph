@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch SelectionFichier",
+            "request": "launch",
+            "mainClass": "AlgoGraph.ihm.SelectionFichier",
+            "projectName": "AlgoAppGraph_f2c9fb05"
+        },
+        {
+            "type": "java",
+            "name": "Launch Main",
+            "request": "launch",
+            "mainClass": "AlgoGraph.Main",
+            "projectName": "AlgoAppGraph_f2c9fb05"
+        },
+        {
+            "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}"

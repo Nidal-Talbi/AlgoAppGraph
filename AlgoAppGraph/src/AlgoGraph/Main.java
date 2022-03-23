@@ -2,15 +2,11 @@ package AlgoGraph;
 
 import java.io.IOException;
 
-import AlgoGraph.metier.App;
-import AlgoGraph.metier.LecteurFichier;
+import AlgoGraph.ihm.SelectionFichier;
 
 public class Main {
 
-	private LecteurFichier lecteur;
 	private static Main instance;
-	static String fichier;
-	int limiteLine = 0;
 	
 	/**
 	 * Constructeur de Main, l'ensemble du programme
@@ -19,8 +15,7 @@ public class Main {
 	public Main() throws IOException
 	{
 		instance = this;
-		this.lecteur = new LecteurFichier(fichier);
-		new App(this.lecteur.getGraphe());
+		new SelectionFichier().setVisible(true);
 	}
 	
 	/**
@@ -30,14 +25,8 @@ public class Main {
 	public static Main getInstance() {
 		return instance;
 	}
-	
-/**
- * Démarrage
- * @param args Fichier à prendre en paramètre (si c'est Exemple1.algo, alors ce sera Exemple1 à entrer)
- * @throws Exception
- */
+
 	public static void main (String[] args) throws Exception{
-		//fichier = "../files/" + args[1];
 		new Main();
 	}
 }
