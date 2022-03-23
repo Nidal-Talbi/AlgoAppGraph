@@ -24,7 +24,6 @@ public class LecteurFichier {
 	public LecteurFichier(String fichier)
 	{
 	
-		//../../../src/AlgoGraph/files/
 		// On essaye de lire le .grph
 		try (Scanner sc = new Scanner(new FileInputStream(fichier), "UTF-8"))
 		{

@@ -1,9 +1,7 @@
 package AlgoGraph.ihm;
 
-import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -17,6 +15,7 @@ import AlgoGraph.metier.LecteurFichier;
 
 public class SelectionFichier extends JFrame implements ActionListener{
 
+    private JButton button,button2;
     private LecteurFichier lecteur;
 
   public static void main(String[] args) {
@@ -26,30 +25,47 @@ public class SelectionFichier extends JFrame implements ActionListener{
   
   public SelectionFichier() {
     /* init de la fenêtre */
-    setSize(100, 200);
+    setSize(200, 200);
     setLocationRelativeTo(null);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     
     JLabel titre = new JLabel("AlgoAppGraph");
+
     /* init du bouton qui va afficher le FileChooser */
-    JButton button = new JButton("Ouvrir un Fichier Graphe");
-    /* ajout du listener qui prend en charge l'action sur le click */
+    button = new JButton("Ouvrir un Fichier Graphe");
     button.addActionListener(this);
+
+    button2 = new JButton("Créer un Fichier Graphe");
+    /* ajout du listener qui prend en charge l'action sur le click */
+    button2.addActionListener(this);
     
     /* ajout du bouton à la fenêtre */
     JPanel p = new JPanel();
     p.add(titre);
     p.add(button);
+    p.add(button2);
     setContentPane(p);
   }
   
   public void actionPerformed(ActionEvent e) {
-    /* init du filechooser */
-    JFileChooser fc = new JFileChooser();
-    /* affichage du dialog et test si le bouton ok est pressé */
-    if (fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION)
-        /* demande au système d'ouvrir le fichier précédemment séléctionné */
-        this.lecteur = new LecteurFichier(fc.getSelectedFile().getAbsolutePath());
-		new App(this.lecteur.getGraphe());
+
+    Object  source=e.getSource();
+        
+    if(source==this.button)
+    {
+        /* init du filechooser */
+        JFileChooser fc = new JFileChooser();
+        /* affichage du dialog et test si le bouton ok est pressé */
+        if (fc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION)
+        {
+            /* demande au système d'ouvrir le fichier précédemment séléctionné */
+            this.lecteur = new LecteurFichier(fc.getSelectedFile().getAbsolutePath());
+            new App(this.lecteur.getGraphe());
+        }
+    }
+    else if (source==button2)
+    {
+        new CreationDeGraphe().setVisible(true);
+    }
   }
 }
