@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class LecteurFichier {
 	static ArrayList<String> graphe = new ArrayList<String>();
+	static ArrayList<String> arc = new ArrayList<String>();
 
 	/**
 	 * Méthode qui retourne le pseudo code sans couleur
@@ -14,6 +15,10 @@ public class LecteurFichier {
 	 */
 	public ArrayList<String> getGraphe() {
 		return graphe;	
+	}
+
+	public ArrayList<String> getArc() {
+		return arc;	
 	}
 
 	/**
@@ -25,14 +30,30 @@ public class LecteurFichier {
 	{
 	
 		// On essaye de lire le .grph
-		try (Scanner sc = new Scanner(new FileInputStream(fichier), "UTF-8"))
+		if (fichier.split("\\.")[1].equals("grph"))
 		{
-			while (sc.hasNext())
-				graphe.add(sc.nextLine());
-		}
-		catch(IOException e)
+			try (Scanner sc = new Scanner(new FileInputStream(fichier), "UTF-8"))
+			{
+				while (sc.hasNext())
+					graphe.add(sc.nextLine());
+			}
+			catch(IOException e)
+			{
+				System.out.println("Aucun fichier trouvé en .grph à exécuter avec le nom spécifié.\n");
+			}
+		} else if (fichier.split("\\.")[1].equals("txt"))
 		{
-			System.out.println("Aucun fichier trouvé en .grph à exécuter avec le nom spécifié.\n");
+			try (Scanner sc = new Scanner(new FileInputStream(fichier), "UTF-8"))
+			{
+				while (sc.hasNext())
+					arc.add(sc.nextLine());
+			}
+			catch(IOException e)
+			{
+				System.out.println("Aucun fichier trouvé en .grph à exécuter avec le nom spécifié.\n");
+			}
+		} else {
+			System.out.println("Erreur de fichier");
 		}
 	}
 }
