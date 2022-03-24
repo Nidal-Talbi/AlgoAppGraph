@@ -73,6 +73,6 @@ public class App {
 	}
 
 	public String getSommet(int i) {
-		return String.valueOf(this.graph.getNode(i));//pas sûr de cette méthode
+		return String.valueOf(this.graph.getNode(i));
 	}
 }
