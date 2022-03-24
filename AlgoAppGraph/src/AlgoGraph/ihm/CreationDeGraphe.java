@@ -23,13 +23,15 @@ public class CreationDeGraphe extends JFrame implements ActionListener{
 
     private JButton button,button2;
     private JTextField nomSommet;
+    private JTextField poid;
     private String contenuGraphe = "";
-    private JComboBox listeSommet1;
-    private JComboBox listeSommet2;
     private DefaultComboBoxModel<String> model;
+    private DefaultComboBoxModel<String> model2;
     private JComboBox<String> jComboBox; 
+    private JComboBox<String> jComboBox2; 
     private String[] listeSommets = new String[100];
     private int nbSommets = 0;
+    private App app;
 
   public static void main(String[] args) {
     /* init + affichage de la fenêtre */
@@ -37,8 +39,10 @@ public class CreationDeGraphe extends JFrame implements ActionListener{
   }
   
   public CreationDeGraphe() {
+
+    this.app = new App(new LecteurFichier("src/AlgoGraph/files/graphe.grph").getGraphe());
     /* init de la fenêtre */
-    setSize(200, 200);
+    setSize(200, 300);
     setLocationRelativeTo(null);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     
@@ -55,17 +59,29 @@ public class CreationDeGraphe extends JFrame implements ActionListener{
     nomSommet = new JTextField();
     nomSommet.setColumns(1);
 
-    String[] liste = { "" };
+    String[] liste = { "Par défault" };
     model = new DefaultComboBoxModel<>(liste);
+    model2 = new DefaultComboBoxModel<>(liste);
     jComboBox = new JComboBox<>(model);
+    jComboBox2 = new JComboBox<>(model2);
+
+    poid = new JTextField();
+    poid.setColumns(1);
+
+    JLabel LabnomSommet = new JLabel("Nom du Sommet");
+    JLabel LabnomPoid = new JLabel("Poid de la relation");
     
     /* ajout du bouton à la fenêtre */
     JPanel p = new JPanel();
     p.add(titre);
     p.add(button);
-    p.add(button2);
+    p.add(LabnomSommet);
     p.add(nomSommet);
+    p.add(button2);
     p.add(jComboBox);
+    p.add(jComboBox2);
+    p.add(LabnomPoid);
+    p.add(poid);
     setContentPane(p);
   }
   
@@ -76,15 +92,17 @@ public class CreationDeGraphe extends JFrame implements ActionListener{
     if(source==this.button && nomSommet.getText() != null)
     {
         contenuGraphe = contenuGraphe + nomSommet.getText() + "\n";
-        model.addElement(nomSommet.getSelectedText());
-        jComboBox.setSelectedItem(nomSommet.getSelectedText());
-        listeSommets[nbSommets] = nomSommet.getSelectedText();
+        model.addElement(nomSommet.getText());
+        model2.addElement(nomSommet.getText());
+        listeSommets[nbSommets] = nomSommet.getText();
+        nomSommet.setText("");
         nbSommets++;
         
         try {
             FileWriter myWriter = new FileWriter("src/AlgoGraph/files/graphe.grph");
             myWriter.write(contenuGraphe);
             myWriter.close();
+            this.app.relancerGraph(new LecteurFichier("src/AlgoGraph/files/graphe.grph").getGraphe());
           } 
           catch (IOException f) {
             System.out.println("An error occurred.");
@@ -93,7 +111,17 @@ public class CreationDeGraphe extends JFrame implements ActionListener{
     }
     else if (source==button2)
     {
-        System.out.println("2eme !");
+        contenuGraphe = contenuGraphe + jComboBox.getSelectedItem().toString() + jComboBox2.getSelectedItem().toString() + " " + jComboBox.getSelectedItem().toString() + " " + jComboBox2.getSelectedItem().toString() + " " + poid.getText() + "\n";
+        try {
+            FileWriter myWriter = new FileWriter("src/AlgoGraph/files/graphe.grph");
+            myWriter.write(contenuGraphe);
+            myWriter.close();
+            this.app.relancerGraph(new LecteurFichier("src/AlgoGraph/files/graphe.grph").getGraphe());
+          } 
+          catch (IOException f) {
+            System.out.println("An error occurred.");
+            f.printStackTrace();
+          }
     }
   }
 }

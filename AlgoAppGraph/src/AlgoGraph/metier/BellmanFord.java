@@ -29,8 +29,8 @@ public class BellmanFord {
         while (cpt < app.nbSommet() -1 ) {
             for (String str : lfArc.getArc()) {
                 String res = lfArc.getArc().get(cpt); //(a,b)
-                String u   = String.valueOf(res.substring(1));
-                String v   = String.valueOf(res.substring(3));
+                String u   = String.valueOf(res.charAt(1));
+                String v   = String.valueOf(res.charAt(3));
                 if ( hashArc.get(v) > hashArc.get(u) + app.distance(u,v))
                 {
                     hashArc.remove(v);
