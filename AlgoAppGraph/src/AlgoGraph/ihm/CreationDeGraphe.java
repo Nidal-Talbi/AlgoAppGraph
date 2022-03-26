@@ -91,23 +91,26 @@ public class CreationDeGraphe extends JFrame implements ActionListener{
         
     if(source==this.button && nomSommet.getText() != null)
     {
-        contenuGraphe = contenuGraphe + nomSommet.getText() + "\n";
-        model.addElement(nomSommet.getText());
-        model2.addElement(nomSommet.getText());
-        listeSommets[nbSommets] = nomSommet.getText();
-        nomSommet.setText("");
-        nbSommets++;
-        
+        String nomNouveauSommet = nomSommet.getText();
+        nomNouveauSommet = app.verifierNomSommet(nomNouveauSommet);
+        if(nomNouveauSommet != "")
+        {
+          contenuGraphe = contenuGraphe + nomNouveauSommet + "\n";
+          model.addElement(nomSommet.getText());
+          model2.addElement(nomSommet.getText());
+          listeSommets[nbSommets] = nomSommet.getText();
+          nomSommet.setText("");
+          nbSommets++;
         try {
             FileWriter myWriter = new FileWriter("src/AlgoGraph/files/graphe.grph");
             myWriter.write(contenuGraphe);
             myWriter.close();
-            this.app.relancerGraph(new LecteurFichier("src/AlgoGraph/files/graphe.grph").getGraphe());
           } 
           catch (IOException f) {
             System.out.println("An error occurred.");
             f.printStackTrace();
           }
+        }
     }
     else if (source==button2)
     {
@@ -116,7 +119,6 @@ public class CreationDeGraphe extends JFrame implements ActionListener{
             FileWriter myWriter = new FileWriter("src/AlgoGraph/files/graphe.grph");
             myWriter.write(contenuGraphe);
             myWriter.close();
-            this.app.relancerGraph(new LecteurFichier("src/AlgoGraph/files/graphe.grph").getGraphe());
           } 
           catch (IOException f) {
             System.out.println("An error occurred.");

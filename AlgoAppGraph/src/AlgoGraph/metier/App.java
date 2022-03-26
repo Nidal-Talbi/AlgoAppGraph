@@ -33,33 +33,28 @@ public class App {
 			}
 			this.ligne++;
 		}
+		for(int i=0;i<3;i++) {
+			Node nd = graph.addNode("v_"+i);
+			nd.setAttribute("ui.label",nd.getId());
+		}
 		this.graph.display();
 	}
 
-	public void relancerGraph(ArrayList<String> Graphe)
+	public String verifierNomSommet(String nomSommet)
 	{
-		System.out.println(this.ligne);
-		while(this.ligne < Graphe.size())
-		{
-			String[] line = Graphe.get(ligne).split(" ");
-			if(line.length == 1)
-			{
-				this.graph.addNode(line[0]);
-			}
-			else if (line.length == 3)
-			{
-				this.graph.addEdge(line[0], line[1], line[2]);
-				this.graph.getEdge(line[0]).setAttribute("poids", 1);
-			}
-			else if (line.length == 4)
-			{
-				this.graph.addEdge(line[0], line[1], line[2]);
-				this.graph.getEdge(line[0]).setAttribute("poids", line[3]);
-			}
-		}
-		this.ligne++;
-		this.graph.display();
+		String nomSommetVerifier = "";
 
+		if(this.graph.getNode(nomSommet) == null)
+		{
+			nomSommetVerifier = nomSommet;
+		}
+
+		return nomSommetVerifier;
+	}
+
+	public void ajouterSommet(String nomSommet)
+	{
+		this.graph.addNode(nomSommet);
 	}
 	public int nbSommet()
 	{
