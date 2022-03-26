@@ -64,7 +64,7 @@ public class SelectionFichier extends JFrame implements ActionListener{
         {
             /* demande au système d'ouvrir le fichier précédemment séléctionné */
             this.lecteurGraphe = new LecteurFichier(fc.getSelectedFile().getAbsolutePath());
-            this.lecteurArc = new LecteurArc("arc.txt");
+            this.lecteurArc = new LecteurArc();
             this.app = new App(this.lecteurGraphe.getGraphe());
             new BellmanFord(this.app, this.lecteurArc);
         }

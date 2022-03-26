@@ -17,7 +17,16 @@ public class BellmanFord {
         this.app = app;
         this.hashArc = new HashMap<String,Integer>();
         this.lfArc   = lecteurArc;
+        init();
+        algo();
+        tabBel();
+        System.out.println(tabToString());
 
+        System.out.println("Le chemin le plus cours est " + cheminPlusCourt());
+    }
+
+    public void init()
+    {
         for (int i = 0; i < app.nbSommet(); i++) {
             if (i == 0)
             {
@@ -27,31 +36,42 @@ public class BellmanFord {
             }
             tabBelmman[0][i] = this.hashArc.get(app.getSommet(i));
         }
+    }
+
+    public void algo()
+    {
         int cpt=0;
         while (cpt < app.nbSommet() -1 ) {
-            int cpt2 =0;
-            for (String str : lfArc.getArc()) {
-                String res = lfArc.getArc().get(cpt); //(a,b)
+            for (int cpt2=0;cpt2 < lfArc.getArc().size();cpt2++) {
+                String res = lfArc.getArc().get(cpt2); //(a,b)
                 String u   = String.valueOf(res.charAt(1));
                 String v   = String.valueOf(res.charAt(3));
                 if ( hashArc.get(v) > hashArc.get(u) + app.distance(u,v))
                 {
-                    hashArc.remove(v);
-                    hashArc.put(v, hashArc.get(u) + app.distance(u,v));
+                    hashArc.replace(v, hashArc.get(u) + app.distance(u,v));
                 }
-                if(cpt != 0)
-                {
-                    tabBelmman[cpt][cpt2] = hashArc.get(app.getSommet(cpt));
-                }
-                cpt2++;
-
             }
             cpt++;
         }
-        System.out.println(tabToString());
-
-        System.out.println("Le chemin le plus cours est " + cheminPlusCourt());
     }
+
+    public void tabBel()
+    {
+        for (int i = 0; i < this.app.nbSommet(); i++) {
+            for (int j = 0; j < this.app.nbSommet(); j++) {
+                if(i != 0)
+                {
+                    tabBelmman[i][j] = hashArc.get(app.getSommet(j));
+                }
+                if ( j == 0 )
+                {
+                    tabBelmman[i][j] = 0;
+                }
+            }
+        }
+    }
+
+
 
     public Integer[] intoTab()
     {
@@ -114,7 +134,7 @@ public class BellmanFord {
             tab += String.format("%-7s", tabBelmman[cpt][this.app.nbSommet()]) + "│\n";
             cpt++;
         }
-        tab += "└─────────────────└";
+        tab += "└─────────────────┴";
         for(int i=0; i < this.app.nbSommet();i++)
         {
             tab += "───────┴";

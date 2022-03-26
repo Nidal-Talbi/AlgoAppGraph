@@ -40,6 +40,12 @@ public class App {
 		this.graph.display();
 	}
 
+	public boolean existe(String s1, String s2)
+	{
+		
+		return false;
+	}
+
 	public String verifierNomSommet(String nomSommet)
 	{
 		String nomSommetVerifier = "";
@@ -63,8 +69,9 @@ public class App {
 
 	public int distance(String u, String v)
 	{	
-		String res = u+v;
+		String res = String.valueOf(u+v);
 		return Integer.parseInt(String.valueOf(this.graph.getEdge(res).getAttribute("poids")));
+		//return 1;
 	}
 
 	public String getSommet(int i) {
