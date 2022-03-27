@@ -24,28 +24,28 @@ public class App {
 			else if (line.length == 3)
 			{
 				this.graph.addEdge(line[0], line[1], line[2]);
-				this.graph.getEdge(line[0]).setAttribute("poids", 1);
+				this.graph.getEdge(line[0]).addAttribute("poids", 1);
 			}
 			else if (line.length == 4)
 			{
 				this.graph.addEdge(line[0], line[1], line[2]);
-				this.graph.getEdge(line[0]).setAttribute("poids", line[3]);
+				this.graph.getEdge(line[0]).addAttribute("poids", line[3]);
 			}
 			this.ligne++;
 		}
-		for(int i=0;i<3;i++) {
-			Node nd = graph.addNode("v_"+i);
-			nd.setAttribute("ui.label",nd.getId());
+		for (Node node : graph) {
+			node.setAttribute("ui.label", node.getId());
 		}
 		this.graph.display();
 	}
 
-	public boolean existe(String s1, String s2)
-	{
-		
-		return false;
+	public void marquerRelation(String chemin) {
+		for(int i=0; i < chemin.length()-1; i++)
+		{
+			graph.getEdge(chemin.substring(i, i+2)).setAttribute("ui.style", "fill-color: red;");
+		}
 	}
-
+	
 	public String verifierNomSommet(String nomSommet)
 	{
 		String nomSommetVerifier = "";
@@ -58,10 +58,29 @@ public class App {
 		return nomSommetVerifier;
 	}
 
+	public String verifierRelation(String nomSommetA, String nomSommetB)
+	{
+		String nomRelationVerifier = "";
+
+		if(this.graph.getEdge(nomSommetA+nomSommetB) == null && this.graph.getEdge(nomSommetB+nomSommetA) == null && nomSommetA != nomSommetB)
+		{
+			nomRelationVerifier = nomSommetA+nomSommetB;
+		}
+
+		return nomRelationVerifier;
+	}
+
 	public void ajouterSommet(String nomSommet)
 	{
 		this.graph.addNode(nomSommet);
 	}
+
+	public void ajouterRelation(String nomSommetA, String nomSommetB, int poid)
+	{
+		this.graph.addEdge(nomSommetA+nomSommetB, nomSommetA, nomSommetB);
+		this.graph.getEdge(nomSommetA+nomSommetB).addAttribute("poids", poid);
+	}
+
 	public int nbSommet()
 	{
 		return this.graph.getNodeCount();
@@ -70,8 +89,7 @@ public class App {
 	public int distance(String u, String v)
 	{	
 		String res = String.valueOf(u+v);
-		return Integer.parseInt(String.valueOf(this.graph.getEdge(res).getAttribute("poids")));
-		//return 1;
+		return Integer.parseInt(this.graph.getEdge(res).getAttribute("poids").toString());
 	}
 
 	public String getSommet(int i) {

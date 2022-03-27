@@ -1,9 +1,7 @@
 package AlgoGraph.metier;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -32,7 +30,7 @@ public class LecteurArc {
 	{
 		// On essaye de lire le .grph
 		File doc =
-          new File("C:\\Users\\nidal\\OneDrive\\Documents\\GitHub\\AlgoAppGraph\\AlgoAppGraph\\src\\AlgoGraph\\arc.txt");  
+          new File("C:\\Users\\etien\\Documents\\Github\\AlgoAppGraph\\AlgoAppGraph\\src\\AlgoGraph\\arc.txt");  
 		try (Scanner obj = new Scanner(doc)) {
 			while (obj.hasNextLine())
 			  	arc.add(obj.nextLine());

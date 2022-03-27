@@ -23,6 +23,7 @@ public class BellmanFord {
         System.out.println(tabToString());
 
         System.out.println("Le chemin le plus cours est " + cheminPlusCourt());
+        this.app.marquerRelation(cheminPlusCourt());
     }
 
     public void init()
@@ -32,7 +33,7 @@ public class BellmanFord {
             {
                 this.hashArc.put(app.getSommet(i), 0);
             } else {
-                this.hashArc.put(app.getSommet(i), 1000);
+                this.hashArc.put(app.getSommet(i), 100000);
             }
             tabBelmman[0][i] = this.hashArc.get(app.getSommet(i));
         }
@@ -103,19 +104,19 @@ public class BellmanFord {
         String tab = "";
 
         tab += "┌─────────────────┬";
-        for(int i=0; i < this.app.nbSommet();i++)
+        for(int i=0; i < this.app.nbSommet()-1;i++)
         {
             tab += "───────┬";
         }
         tab += "───────┐\n";
         tab+=  "│   ETAPE/NOEUD   |";
-        for(int i=0; i < this.app.nbSommet();i++)
+        for(int i=0; i < this.app.nbSommet()-1;i++)
         {
             tab += String.format("%-7s", this.app.getSommet(i)) + "│";
         }
-        tab += String.format("%-7s", this.app.getSommet(this.app.nbSommet())) + "│\n";
+        tab += String.format("%-7s", this.app.getSommet(this.app.nbSommet()-1)) + "│\n";
         tab += "├─────────────────├";
-        for(int i=0; i < this.app.nbSommet();i++)
+        for(int i=0; i < this.app.nbSommet()-1;i++)
         {
             tab += "───────┴";
         }
@@ -127,15 +128,25 @@ public class BellmanFord {
         {
             tab += "│" + String.format("%-17s", cpt) + "│";
 
-            for(int i=0; i < this.app.nbSommet();i++)
+            for(int i=0; i < this.app.nbSommet()-1;i++)
             {
-                tab += String.format("%-7s", tabBelmman[cpt][i]) + "│";
+                if(tabBelmman[cpt][i] == 100000)
+                {
+                    tab += "+Infini│";
+                }
+                else
+                    tab += String.format("%-7s", tabBelmman[cpt][i]) + "│";
             }
-            tab += String.format("%-7s", tabBelmman[cpt][this.app.nbSommet()]) + "│\n";
+            if(tabBelmman[cpt][this.app.nbSommet()-1] == 100000)
+            {
+                tab += "+Infini│\n";
+            }
+            else
+                tab += String.format("%-7s", tabBelmman[cpt][this.app.nbSommet()-1]) + "│\n";
             cpt++;
         }
         tab += "└─────────────────┴";
-        for(int i=0; i < this.app.nbSommet();i++)
+        for(int i=0; i < this.app.nbSommet()-1;i++)
         {
             tab += "───────┴";
         }

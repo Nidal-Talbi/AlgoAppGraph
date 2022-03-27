@@ -2,7 +2,6 @@ package AlgoGraph.ihm;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -12,7 +11,6 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import AlgoGraph.metier.App;
@@ -56,7 +54,7 @@ public class CreationDeGraphe extends JFrame implements ActionListener{
     /* ajout du listener qui prend en charge l'action sur le click */
     button2.addActionListener(this);
 
-    nomSommet = new JTextField();
+    nomSommet = new JTextField("A");
     nomSommet.setColumns(1);
 
     String[] liste = { "Par défault" };
@@ -65,7 +63,7 @@ public class CreationDeGraphe extends JFrame implements ActionListener{
     jComboBox = new JComboBox<>(model);
     jComboBox2 = new JComboBox<>(model2);
 
-    poid = new JTextField();
+    poid = new JTextField("1");
     poid.setColumns(1);
 
     JLabel LabnomSommet = new JLabel("Nom du Sommet");
@@ -98,6 +96,7 @@ public class CreationDeGraphe extends JFrame implements ActionListener{
           contenuGraphe = contenuGraphe + nomNouveauSommet + "\n";
           model.addElement(nomSommet.getText());
           model2.addElement(nomSommet.getText());
+          app.ajouterSommet(nomNouveauSommet);
           listeSommets[nbSommets] = nomSommet.getText();
           nomSommet.setText("");
           nbSommets++;
@@ -115,15 +114,19 @@ public class CreationDeGraphe extends JFrame implements ActionListener{
     else if (source==button2)
     {
         contenuGraphe = contenuGraphe + jComboBox.getSelectedItem().toString() + jComboBox2.getSelectedItem().toString() + " " + jComboBox.getSelectedItem().toString() + " " + jComboBox2.getSelectedItem().toString() + " " + poid.getText() + "\n";
-        try {
-            FileWriter myWriter = new FileWriter("src/AlgoGraph/files/graphe.grph");
-            myWriter.write(contenuGraphe);
-            myWriter.close();
-          } 
-          catch (IOException f) {
-            System.out.println("An error occurred.");
-            f.printStackTrace();
-          }
+        if(app.verifierRelation(jComboBox.getSelectedItem().toString(), jComboBox2.getSelectedItem().toString()) != "")
+        {
+          app.ajouterRelation(jComboBox.getSelectedItem().toString(), jComboBox2.getSelectedItem().toString(),  Integer.parseInt(poid.getText()));
+          try {
+              FileWriter myWriter = new FileWriter("src/AlgoGraph/files/graphe.grph");
+              myWriter.write(contenuGraphe);
+              myWriter.close();
+            } 
+            catch (IOException f) {
+              System.out.println("An error occurred.");
+              f.printStackTrace();
+            }
+        }
     }
   }
 }

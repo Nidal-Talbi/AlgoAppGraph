@@ -9,6 +9,20 @@
             "name": "Launch CreationDeGraphe",
             "request": "launch",
             "mainClass": "AlgoGraph.ihm.CreationDeGraphe",
+            "projectName": "AlgoAppGraph_f3704923"
+        },
+        {
+            "type": "java",
+            "name": "Launch Main",
+            "request": "launch",
+            "mainClass": "AlgoGraph.Main",
+            "projectName": "AlgoAppGraph_f3704923"
+        },
+        {
+            "type": "java",
+            "name": "Launch CreationDeGraphe",
+            "request": "launch",
+            "mainClass": "AlgoGraph.ihm.CreationDeGraphe",
             "projectName": "AlgoAppGraph_d6f3dd06"
         },
         {
